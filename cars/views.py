@@ -41,7 +41,11 @@ def post_list_view(request):
     
 def post_detail_view(request, post_id):
     if request.method == 'GET':
-        post = Post.objects.get(id=post_id)
-        context = {'post': post}
+        try:
+            post = Post.objects.get(id=post_id)
+            
+        except Post.DoesNotExist:
+            return HttpResponse('Post not found', status=404)
         
+        context = {'post': post}
         return render (request, 'cars/post_detail.html', context)
