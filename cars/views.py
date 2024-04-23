@@ -1,7 +1,8 @@
 from datetime import datetime
 import random
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import redirect, render, HttpResponse
 
+from cars.form import PostForm, ReviewForm
 from cars.models import Post
 
 def main_view(request):
@@ -47,7 +48,34 @@ def post_detail_view(request, post_id):
         except Post.DoesNotExist:
             return HttpResponse('Post not found', status=404)
         
-        
-        
         context = {'post': post}
         return render (request, 'cars/post_detail.html', context)
+    
+def post_create_view(request):
+    if request.method == 'GET':
+        form = PostForm()
+        return render (request, 'cars/post_create.html', {'form': form})
+    elif request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('post_list_view')
+        return render (request, 'cars/post_create.html', {'form': form})
+    
+    
+    
+def add_review_view(request, post_id):
+    post = Post.objects.get(id=post_id)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.post = post
+            review.save()
+            return redirect('post_detail_view', post_id=post_id)
+    else:
+        form = ReviewForm()
+
+    return render(request, 'cars/add_review.html', {'form': form, 'post': post})

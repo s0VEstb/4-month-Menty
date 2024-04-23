@@ -10,7 +10,7 @@ class Tag(models.Model):
     
     
 class Post(models.Model):
-    img = models.ImageField(upload_to='media/',null=True, blank=True)
+    img = models.ImageField(upload_to='media',null=True, blank=True)
     title = models.CharField(max_length=200, null=True)
     brand = models.CharField(max_length=255, null=True)
     model = models.CharField(max_length=255)

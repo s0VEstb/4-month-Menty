@@ -1,9 +1,14 @@
+{% extends 'components/navbar.html' %}
+{% block content %}
 <h1>
     POSTS:
 </h1>
 {% for post in posts%}
-    <div>
-        <h2>{{ post.brand }} </h2>
-        <a href="{{post.id}}">Detailing</a>
-    </div>
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ post.brand }}</li>
+            <a href="{{post.id}}">Detailing</a>
+        </ul>
+        </div>
 {% endfor %}
+{% endblock %}
