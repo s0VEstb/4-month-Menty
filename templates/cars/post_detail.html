@@ -16,10 +16,12 @@
         <p>Year of issue: {{post.year_of_issue}}</p>
         <p>Comments: {{post.text}}</p>
         <p>The date of the exhibition: {{post.created}}</p>
-        <a href="/posts">Back to main Page</a>
+        <a class="btn btn-primary" href="/posts">Back to main Page</a>
+        <a class="btn btn-primary" href="edit/">Update</a>
 </div>
 
 <h2>Add a Review:</h2>
+
 <form method="POST" action="{% url 'add_review' post.id %}">
     {% csrf_token %}
     <textarea name="text" rows="4" cols="50" placeholder="Write your review here..."></textarea><br>
