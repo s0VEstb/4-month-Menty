@@ -12,3 +12,17 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['text']
+
+# class ReviewForm(forms.ModelForm):
+#     class Meta:
+#         model = Review
+#         fields = ['text']
+
+#     user = None  # Добавляем атрибут user
+
+#     def save(self, commit=True):
+#         instance = super().save(commit=False)
+#         instance.user = self.user  # Устанавливаем пользователя для отзыва
+#         if commit:
+#             instance.save()
+#         return instance

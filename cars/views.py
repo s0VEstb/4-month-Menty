@@ -5,6 +5,9 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView , UpdateView
 from cars.form import PostForm, ReviewForm
 from cars.models import Post
+from user.models import Profile
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -71,16 +74,23 @@ class PostUpdateView(UpdateView):
     
 class AddReviewView(View):
     def get(self, request, post_id):
+        
         post = Post.objects.get(id=post_id)
         form = ReviewForm()
+        
+        form.user = request.user
+        
         return render(request, 'cars/add_review.html', {'form': form, 'post': post})
 
     def post(self, request, post_id):
         post = Post.objects.get(id=post_id)
         form = ReviewForm(request.POST)
+        form.user = request.user
+        
         if form.is_valid():
             review = form.save(commit=False)
             review.post = post
+            
             review.save()
             return redirect('post_detail_view', post_id=post_id)
         return render(request, 'cars/add_review.html', {'form': form, 'post': post}) 

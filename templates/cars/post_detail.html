@@ -32,6 +32,7 @@
     Review:
 </h2>
 {% for review in post.reviews.all %}
+<p>user:{{ review.user }}</p>
 <p>{{ review.text }}</p>
 {% endfor %}
 
