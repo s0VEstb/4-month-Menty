@@ -10,6 +10,12 @@ class Tag(models.Model):
     
     
 class Post(models.Model):
+    user = models.ForeignKey(
+        'user.Profile',
+        on_delete=models.CASCADE,
+        related_name='posts',
+        null=True
+    )
     img = models.ImageField(upload_to='media',null=True, blank=True)
     title = models.CharField(max_length=200, null=True)
     brand = models.CharField(max_length=255, null=True)
@@ -32,11 +38,20 @@ class Post(models.Model):
         return f"{self.title}"
     
 class Review(models.Model):
+    user = models.ForeignKey(
+        'user.Profile',
+        on_delete=models.CASCADE,
+        related_name='reviews',
+        null=True,
+        blank=True
+    )
     text = models.TextField()
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
         related_name='reviews',
+        null=True,
+        blank=True
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

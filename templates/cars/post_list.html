@@ -6,6 +6,7 @@
 {% for post in posts%}
     <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
+            <img src="/media/{{ post.img }}">
             <li class="list-group-item">{{ post.brand }}</li>
             <a href="{{post.id}}">Detailing</a>
         </ul>

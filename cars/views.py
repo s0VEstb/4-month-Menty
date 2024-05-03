@@ -71,7 +71,7 @@ class PostUpdateView(UpdateView):
     pk_url_kwarg = 'post_id'
     success_url = '/posts/'
 
-    
+
 class AddReviewView(View):
     def get(self, request, post_id):
         
@@ -90,6 +90,8 @@ class AddReviewView(View):
         if form.is_valid():
             review = form.save(commit=False)
             review.post = post
+            review.user = request.user.profile
+
             
             review.save()
             return redirect('post_detail_view', post_id=post_id)

@@ -26,3 +26,6 @@ class Profile(models.Model):
     img = models.ImageField(upload_to='media', null=True, blank=True)
     age = models.PositiveIntegerField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}"
